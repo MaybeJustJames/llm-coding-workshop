@@ -7,9 +7,9 @@ font:     Noto Sans Egyptian Hieroglyphs, Noto Sans Ogham
 
 -->
 
-# Getting the Most Out of AI Coding Assistants
+# Getting the Most Out of LLM Coding Assistants
 
-![James Collier](https://stprdappsazweu.blob.core.windows.net/iam-public/profile-pics-cropped/53-6924.jpeg "<a href='https://james.thecolliers.xyz'>James Collier</a>") ![Marine Guyot](https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=481,h=541,fit=crop,trim=0;380.0048959608323;0;380.0048959608323/YKbwLJxKNyCVNRWR/official_photo-mePkOLx1EWU6E6Lo.jpg "<a href='https://codingresearcher.com'>Marine Guyot</a>")
+![James Collier](https://indigohouse.nl/wp-content/uploads/2026/05/JamesCollier.png"<a href='https://james.thecolliers.xyz'>James Collier</a>")
 
 ## Who are you?
 
@@ -17,18 +17,19 @@ Briefly introduce yourself:
 
 * What is your name?
 * What do you work on?
-* Why did you join the course?
+* Why did you join the workshop?
 
 ## Workshop goals
 
-* What AI powered tools are available?
+* What LLM powered tools are available?
 
   * What can these tools do well?
   * What don't they do well?
+  * How do they fit indo KULeuven GenAI guidelines?
 
-* Tips and tricks, pros and cons, lots of discussion
-* Ethical, security, and privacy issues
-* Practical applications (try things out)
+* KULeuven Policies
+* Practical workflows including LLMs
+* Try things out
 
 ## What is "AI"?
 
@@ -41,11 +42,28 @@ Briefly introduce yourself:
 
 ## What is an LLM?
 
-* A statistical model of language => multi-dimensional distribution
+* A statistical model of language => multi-dimensional probability distribution
 * Model inferred ("trained") from a "large" volume of data
-* Training result is a high-dimensional statistical distribution
-* Sampling from the distribution produces a "token"
+* Training result is a high-dimensional statistical distribution that estimates the probabilities for possible next tokens given a context.
+* Sampling from the distribution produces a "token", repeated sampling produces a sequence of tokens.
 * Training often optimizes for observing "human like" sequences of sampled tokens
+* Note! None of this implies factual accuracy
+
+## KULeuven Policies
+
+> If you have a hammer, every problem looks like a nail
+
+* You are not required to use LLMs
+* Use of LLMs is your own choice and you are responsible for the output
+* You must not submit confidential or private information to an LLM (doing so may have legal consequences)
+* Use of unsupervised "agents" is not permitted
+
+You should take the time to familiarise yourself with the rules and guidelines at KULeuven:
+
+* https://www.kuleuven.be/english/genai
+* https://www.kuleuven.be/english/genai/tools-overview
+* https://www.kuleuven.be/english/genai/agentic-ai
+
 
 ## Software development tasks
 
@@ -64,21 +82,21 @@ Briefly introduce yourself:
 
 ## What tools do we already use for these tasks?
 
-* Editors (with LSP)
+* Editors (with syntax highlighting, go-to-definition, etc)
 * Static analysis (linters, type checkers)
 * Dynamic analysis (valgrind, profilers)
 * Tests
 * Version control
 * Build tools
 * Debuggers
-* Code generation
+* Code generation (macros, procedural generation, etc)
 * Logging and monitoring
 * Dependency management
 * Project management
 * Documentation
 * Databases
 
-## What can AI powered tools do?
+## Help can LLMs assist software development?
 
 ### Code generation
 
@@ -194,60 +212,57 @@ loop="true"
 autoplay="true"
 -->
 
-## Ethics, security, and privacy
+### Agents
 
-Brainstorm
+> go and build this feature for me.
 
-## Demo: ChatGPT
-
-### Step 1: Set custom context in ChatGPT.
-
-> you are a machine learning developper in python. You use lightning-pytorch. You work in research field.
-
-!?[ChatGPT set custom context](images/chatgpt-custom-opt.mp4)<!--
+!?[Agent harness](images/agent-harness.mp4)<!--
 muted="true"
 loop="true"
 autoplay="true"
 -->
 
-### Step 2: Describe the problem.
+#### Skills
 
-> I have eye tracking time-series data for patients with a certain age. I want to classify this time series based on age. Please suggest a list of good deep learning models.
+[Agent skills standard](https://agentskills.io)
+[Agent skills library](https://mcpservers.org/agent-skills)
 
-### Step 3: Generate the python code to test this model.
+Quick way to give the LLM specific instructions without repeated typing.
 
-> Generate python code with the LSTM model
+We'll explore these more later.
 
-!?[ChatGPT Machine learning code](images/chatgpt-ml-models-opt.mp4)<!--
-muted="true"
-loop="true"
-autoplay="true"
--->
+#### Memories
 
-## Demo: `q`
+LLMs have no way to "remember" what they've done before. To "solve" this, agent harnesses like [pi](https://github.com/jayzeng/pi-memory) store what they need to remember in a markdown document
 
-* https://two-wrongs.com/q
-* https://llm.datasette.io/
+#### MCP servers and integrations
 
-!?[q tool](images/q-opt.mp4)<!--
-muted="true"
-loop="true"
-autoplay="true"
--->
+Give the LLM access to external services (e.g. calendar, bug tracker, ...)
+
+https://mcpservers.org/
+
+
+## Demo
+
+### Step 1: Ask the LLM about the project
+
+> Summarize this project and list potential opportunities for improvement and extension.
+
+### Step 2: Brainstorm about an extension
+
+> /brainstorm ...
+
+### Step 3: Generate a requirements document
+
+> /grill-me
+
 
 ## Your turn: Explore the tools
 
-**Goal**: Make a real-world open-source contribution (or equivalent).
+**Goal**: Add a significant feature to the demo project or to an open-source project of your own (selection).
 
 Now is a good time to install anything you would like to try out locally.
-Also a good time to log into (or create accounts for) any services you might want to use:
-
-* [OpenAI / ChatGPT](https://chatgpt.com)
-* [Anthropic / Claude](https://claude.ai)
-* [Replit](https://replit.com)
-* [Codeium](https://codeium.com/)
-* [Ollama](https://ollama.com/)
-* [LLM](https://llm.datasette.io/)
+Also a good time to log into (or create accounts for) any services you might want to use (check the README).
 
 ## Use the tools for real
 
@@ -260,21 +275,15 @@ Try to understand the advantages and limitations of each tool.
 * [Biopython](https://github.com/biopython/biopython/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22+-linked%3Apr)
 * [GGPlot2](https://github.com/tidyverse/ggplot2/issues/6178)
 * [YAML](https://github.com/MaybeJustJames/yaml/issues?q=is%3Aissue+is%3Aopen+-linked%3Apr)
-* [My small language model](https://github.com/vibbits/ai-coding-course)
+* [A small language model](https://github.com/vibbits/ai-coding-course)
 
-## Do it again
+## Questions
 
-1. Go to [Replit](https://replit.com) and sign up
-1. Import a github project using the link: https://github.com/vibbits/ai-coding-course
-
-You will need to find out:
-
-* How do I run a Haskell project?
-* How do I build a Haskell project?
+* How do I run/build/test the project?
 * What does the code do?
-* Can you add tests to the project?
+* Can you add tests?
 * Code review the project
-* Does the code have bugs?
+* Can you find any bugs?
 * Can you add a feature?
 
 ## Discussion
@@ -287,10 +296,6 @@ You will need to find out:
 
 ## Conclusion
 
-**Do not give online models private or sensitive information**
+**Do not give LLMs private or sensitive information**
 
 **Do not blindly trust the output**
-
-**Explore your options: things in this domain change very quickly**
-
-**Are you planning to use any of the tools in this workshop?**
