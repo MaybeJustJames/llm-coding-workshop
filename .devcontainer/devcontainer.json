@@ -1,0 +1,19 @@
+{
+  "name": "Haskell Development Environment",
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "haskell.haskell",
+        "justusadam.language-haskell"
+      ],
+      "settings": {
+        "haskell.plugin.ghcide.version": "9.14.1"
+      }
+    }
+  },
+  "remoteUser": "root",
+  "postCreateCommand": "cabal update"
+}
