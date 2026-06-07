@@ -364,7 +364,7 @@ Announce document completion. Provide a few final tips:
 - Don't let gaps accumulate: address them as they come up
 
 **Artifact Management:**
-- Use `write` for all edits
+- Use `edit` for all edits
 - Provide artifact link after every change
 - Never use artifacts for brainstorming lists. That's just conversation
 
