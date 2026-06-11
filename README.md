@@ -2,8 +2,11 @@
 
 ## Setup
 
-1. Install [Pi](https://pi.dev/)
-2. Install `ask_user_question`:
+!NOTE! The tools we will be exploring in this workshop are _off-limits by default_ within KU Leuven, however use in a research context can be acceptable, provided it happens in an isolated, shielded environment. It is *YOUR RESPONSIBILITY* to take measures to limit risks.
+
+1. Set up an isolated environment such as a Virtual machine (e.g. [QEMU](https://www.qemu.org/), [VirtualBox](https://www.virtualbox.org/), [VMWare Fusion](https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion)) or [Docker](https://www.docker.com/)
+2. Install [Pi](https://pi.dev/)
+3. Install `ask_user_question`:
    `pi install git:github.com/ghoseb/pi-askuserquestion`
 
 ### LLM Providers

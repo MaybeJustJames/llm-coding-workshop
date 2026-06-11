@@ -242,6 +242,10 @@ Give the LLM access to external services (e.g. calendar, bug tracker, ...)
 https://mcpservers.org/
 
 
+### "Vibe Coding"
+
+![Vibe Coding](images/karpathy-vibecoding.png)
+
 ## Demo
 
 ### Step 1: Ask the LLM about the project
