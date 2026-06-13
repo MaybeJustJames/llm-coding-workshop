@@ -366,19 +366,23 @@ cabal test
 
 ### Step 1: Ask the LLM about the project
 
-> Summarize this project and list potential opportunities for improvement and extension.
+> Summarize this project, point out any glaring bugs, list potential opportunities for improvement
 
 ### Step 2: Brainstorm about an extension
 
-> /brainstorm ...
+> /skill:brainstorm ...
 
 ### Step 3: Generate a requirements document
 
-> /grill-me
+> /skill:grill-me
 
 ### Step 4: Break requirements into tasks
 
-> /prd-to-issues
+> /skill:prd-to-issues
+
+### Step 5: Write a skill
+
+Write a skill to suggest and review tests (or something more relevent to whatever was discussed above).
 
 ## (Automated) verification and "guard rails"
 
@@ -401,7 +405,7 @@ Also a good time to log into (or create accounts for) any services you might wan
 
 ## Use the tools for real
 
-Try to understand the advantages and limitations of each tool.
+Try to understand advantages and limitations
 
 * How do I run/build/test the project?
 * What does the code do?
@@ -409,6 +413,7 @@ Try to understand the advantages and limitations of each tool.
 * Code review the project
 * Can you find any bugs?
 * Can you add a feature?
+* Can you define your own useful `SKILL.md`?
 
 ## Discussion
 
