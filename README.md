@@ -26,10 +26,25 @@ docker build --build-arg USER_UID=$(id -u) --build-arg USER_GID=$(id -g) -t llm-
 docker run -it --rm \
   --cap-drop ALL \
   --security-opt no-new-privileges \
-  -v pi-config:/home/dev/.pi
-  -v "$PWD":/workspace \
-  pi-dev
+  -v pi-config:/home/dev/.pi \
+  -v "${PWD}":/workspace \
+  llm-coding-workshop
 ```
+
+#### On Windows (PowerShell)
+
+```powershell
+docker run -it --rm `
+  --cap-drop ALL `
+  --security-opt no-new-privileges `
+  -v pi-config:/home/dev/.pi `
+  -v "${PWD}:/workspace" `
+  ghcr.io/maybejustjames/llm-coding-workshop:latest
+```
+
+To reach a model server on the Windows host (e.g. LM Studio), use
+`host.docker.internal:1234` rather than a LAN IP. For best file performance, keep
+the repo inside your WSL2 filesystem rather than under `C:\`.
 
 
 ### LLM Providers

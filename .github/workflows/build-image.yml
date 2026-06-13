@@ -1,26 +1,13 @@
 name: Build dev image
 
-# Builds the workshop dev-container image and publishes it to the GitHub
-# Container Registry (ghcr.io) so students pull a prebuilt image instead of
-# compiling the Haskell toolchain locally.
-#
-# Each architecture is built on its own NATIVE GitHub-hosted runner (no QEMU
-# emulation, which would make the Haskell compile painfully slow), then the
-# per-arch images are merged into a single multi-arch manifest. `docker pull`
-# then picks the right architecture automatically.
-
 on:
   push:
     branches: [main]
-    # Only rebuild when something that affects the image changes.
     paths:
       - Dockerfile
       - .devcontainer/**
       - .github/workflows/build-image.yml
   workflow_dispatch:
-
-env:
-  IMAGE: ghcr.io/${{ github.repository }}
 
 jobs:
   build:
@@ -40,6 +27,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set lowercase image ref
+        run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
+
       - uses: docker/setup-buildx-action@v3
 
       - name: Log in to GHCR
@@ -49,8 +39,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Build and push by digest only (no tag yet). The merge job below stitches
-      # the per-arch digests into the final tagged manifest.
       - name: Build and push by digest
         id: build
         uses: docker/build-push-action@v6
@@ -58,7 +46,6 @@ jobs:
           context: .
           platforms: ${{ matrix.platform }}
           outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=true
-          # Reuse unchanged layers (including the slow Haskell compile) across runs.
           cache-from: type=gha,scope=${{ matrix.platform }}
           cache-to: type=gha,mode=max,scope=${{ matrix.platform }}
 
@@ -84,6 +71,9 @@ jobs:
       contents: read
       packages: write
     steps:
+      - name: Set lowercase image ref
+        run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
+
       - name: Download digests
         uses: actions/download-artifact@v4
         with:
