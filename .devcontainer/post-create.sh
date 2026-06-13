@@ -1,31 +1,33 @@
 #!/usr/bin/env bash
-# Runs once when the Dev Container is created (devcontainer.json postCreateCommand).
 set -u
 
-# Refresh the cabal package index.
 cabal update || true
 
-# Install the Haskell TextMate grammar (syntax highlighting). The extension
-# justusadam.language-haskell was removed from the MS Marketplace, so it can't go
-# in devcontainer.json "extensions"; instead the VSIX is baked into the image
-# (see Dockerfile) and installed here via the VS Code Server CLI.
 vsix=/opt/language-haskell.vsix
+ext_id=justusadam.language-haskell
 
-# Locate the VS Code Server CLI: it's usually on PATH as `code`, but fall back to
-# globbing the server install if not (path contains a version/commit hash).
-code_cli="$(command -v code || true)"
-if [ -z "$code_cli" ]; then
-  code_cli="$(ls "$HOME"/.vscode-server/bin/*/bin/remote-cli/code \
-                 "$HOME"/.vscode-server/cli/servers/*/server/bin/remote-cli/code \
-              2>/dev/null | head -1 || true)"
+if [ ! -f "$vsix" ]; then
+  echo "WARN: $vsix not found; cannot install the Haskell syntax grammar."
+  exit 0
 fi
 
-if [ -n "$code_cli" ] && [ -f "$vsix" ]; then
-  if "$code_cli" --install-extension "$vsix"; then
-    echo "Installed Haskell syntax grammar from $vsix (reload the window if colours don't appear)."
-  else
-    echo "WARN: failed to install $vsix; install it manually via 'Extensions: Install from VSIX'."
-  fi
+server_cli="$(ls -t \
+  "$HOME"/.vscode-server/bin/*/bin/code-server \
+  "$HOME"/.vscode-server/cli/servers/*/server/bin/code-server \
+  2>/dev/null | head -1 || true)"
+
+manual_hint="Install it manually: Command Palette -> 'Extensions: Install from VSIX' -> $vsix, then reload the window."
+
+if [ -z "$server_cli" ]; then
+  echo "WARN: VS Code server CLI (code-server) not found. $manual_hint"
+  exit 0
+fi
+
+echo "Using VS Code server CLI: $server_cli"
+"$server_cli" --install-extension "$vsix" --force || true
+
+if "$server_cli" --list-extensions 2>/dev/null | grep -qi "$ext_id"; then
+  echo "Installed Haskell syntax grammar ($ext_id). Run 'Developer: Reload Window' if colours don't appear."
 else
-  echo "WARN: VS Code CLI or $vsix not found; install $vsix manually via 'Extensions: Install from VSIX'."
+  echo "WARN: auto-install of $vsix did not take. $manual_hint"
 fi
