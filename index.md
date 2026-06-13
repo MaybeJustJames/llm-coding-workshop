@@ -1,6 +1,6 @@
 <!--
 author: James Collier
-email: james.collier@vib.be
+email: james@thecolliers.xyz
 language: en
 
 font:     Noto Sans Egyptian Hieroglyphs, Noto Sans Ogham
@@ -25,19 +25,27 @@ Briefly introduce yourself:
 
   * What can these tools do well?
   * What don't they do well?
-  * How do they fit indo KULeuven GenAI guidelines?
+  * How do they fit into KULeuven rules & guidelines?
 
 * KULeuven Policies
-* Practical workflows including LLMs
-* Try things out
+* Practical workflows using LLMs
+* Try things out yourself
 
 ## What is "AI"?
 
-* A chat interface? Is [ELIZA](https://www.theguardian.com/technology/2023/jul/25/joseph-weizenbaum-inventor-eliza-chatbot-turned-against-artificial-intelligence-ai) an AI?
-* Statistical inference
-* Machine learning
-* Symbolic reasoning
-* Large Language Models (LLMs)
+* ["Can machines think?" Turing 1950](https://doi.org/10.1093/mind/LIX.236.433)
+* A chat interface? Is [ELIZA](https://www.theguardian.com/technology/2023/jul/25/joseph-weizenbaum-inventor-eliza-chatbot-turned-against-artificial-intelligence-ai)  from 1966 (a few hundred lines of pattern-matching) an AI?
+
+### Symbolic reasoning
+* Symbolic manipulation and logic. Dartmouth workshop coins "AI" ["Logic Theorist" Newell & Simon, 1956](https://en.wikipedia.org/wiki/Logic_Theorist)
+* Search. "A*" [Hart, Nilsson & Raphael, 1968](https://ieeexplore.ieee.org/document/4082128/)
+* Knowledge base of facts -> Expert systems. e.g. ["MYCIN" Shortliffe, 1970s](https://en.wikipedia.org/wiki/Mycin)
+* AI Winter. Overpromised, underdelivered -> [Lighthill report (1973)](https://en.wikipedia.org/wiki/Lighthill_report); expert-systems bust (late 1980s)
+
+### Statistical inference
+* Machine learning. [A. Samuel, 1959](https://dl.acm.org/doi/10.1147/rd.33.0210)
+* (Deep) neural networks. "Perceptron" [Rosenblatt, 1958](https://doi.org/10.1037/h0042519) -> [AlexNet](https://en.wikipedia.org/wiki/AlexNet) wins ImageNet in 2012 (Data + GPUs)
+* "Transformer" [Attention is all you need (2017)](https://arxiv.org/abs/1706.03762) -> Large Language Models (LLMs)
 
 
 ## What is an LLM?
@@ -76,7 +84,7 @@ You should take the time to familiarise yourself with the rules and guidelines a
 
 
                            {{2}}
-[PocketOS AI agent deletes production database and backups](https://metr.org/blog/2026-02-24-uplift-update/#wider-adoption-of-ai-has-made-it-more-difficult-to-measure-task-level-productivity)
+[PocketOS AI agent deletes production database and backups](https://www.theregister.com/software/2026/04/27/cursor-opus-agent-snuffs-out-startups-production-database/5224442)
 
 
                            {{3}}
@@ -106,9 +114,6 @@ You should take the time to familiarise yourself with the rules and guidelines a
                            {{9}}
 [AI agent deletes entire hard-drive](https://www.reddit.com/r/ClaudeAI/comments/1pgxckk/claude_cli_deleted_my_entire_home_directory_wiped/)
 
-
-                           {{10}}
-[AI agent deletes entire hard-drive](https://www.reddit.com/r/ClaudeAI/comments/1pgxckk/claude_cli_deleted_my_entire_home_directory_wiped/)
 
 
 ## Software development tasks
