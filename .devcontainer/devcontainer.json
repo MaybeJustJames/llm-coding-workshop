@@ -1,8 +1,6 @@
 {
   "name": "Haskell Development Environment",
-  "build": {
-    "dockerfile": "../Dockerfile"
-  },
+  "image": "ghcr.io/maybejustjames/llm-coding-workshop:latest",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -10,10 +8,12 @@
         "justusadam.language-haskell"
       ],
       "settings": {
-        "haskell.plugin.ghcide.version": "9.14.1"
+        "haskell.plugin.ghcide.version": "9.6.7"
       }
     }
   },
-  "remoteUser": "root",
+  "remoteUser": "dev",
+  "updateRemoteUserUID": true,
+  "runArgs": ["--security-opt=no-new-privileges"],
   "postCreateCommand": "cabal update"
 }
