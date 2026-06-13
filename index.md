@@ -65,6 +65,52 @@ You should take the time to familiarise yourself with the rules and guidelines a
 * https://www.kuleuven.be/english/genai/agentic-ai
 
 
+### Why?
+
+                           {{0}}
+[Replit AI agent deletes a production database](https://www.theregister.com/software/2025/07/21/vibe-coding-service-replit-deleted-production-database/719783)
+
+
+                           {{1}}
+[AI Developer productivity improvement not clear](https://metr.org/blog/2026-02-24-uplift-update/#wider-adoption-of-ai-has-made-it-more-difficult-to-measure-task-level-productivity)
+
+
+                           {{2}}
+[PocketOS AI agent deletes production database and backups](https://metr.org/blog/2026-02-24-uplift-update/#wider-adoption-of-ai-has-made-it-more-difficult-to-measure-task-level-productivity)
+
+
+                           {{3}}
+[Prompt injection botnet](https://snyk.io/blog/cline-supply-chain-attack-prompt-injection-github-actions/)
+
+
+                           {{4}}
+[Supply chain attacks on AI agent tooling](https://phoenix.security/accelerating-supply-chain-attacks-npm-pypi-vsx-ai-enabled-2026/)
+
+
+                           {{5}}
+[Lovable exposes credentials, user data for 48 days](https://thenextweb.com/news/lovable-vibe-coding-security-crisis-exposed)
+
+
+                           {{6}}
+[Claude Code terminal flickering saga](https://steipete.me/posts/2025/signature-flicker)
+
+
+                           {{7}}
+[43% of AI generated code needs debugging in production](https://venturebeat.com/technology/43-of-ai-generated-code-changes-need-debugging-in-production-survey-finds)
+
+
+                           {{8}}
+[AI agent wipes production infra](https://alexeyondata.substack.com/p/how-i-dropped-our-production-database)
+
+
+                           {{9}}
+[AI agent deletes entire hard-drive](https://www.reddit.com/r/ClaudeAI/comments/1pgxckk/claude_cli_deleted_my_entire_home_directory_wiped/)
+
+
+                           {{10}}
+[AI agent deletes entire hard-drive](https://www.reddit.com/r/ClaudeAI/comments/1pgxckk/claude_cli_deleted_my_entire_home_directory_wiped/)
+
+
 ## Software development tasks
 
 * Building programs from scratch
@@ -96,7 +142,7 @@ You should take the time to familiarise yourself with the rules and guidelines a
 * Documentation
 * Databases
 
-## Help can LLMs assist software development?
+## How can LLMs assist software development?
 
 ### Code generation
 
@@ -233,7 +279,37 @@ We'll explore these more later.
 
 #### Memories
 
-LLMs have no way to "remember" what they've done before. To "solve" this, agent harnesses like [pi](https://github.com/jayzeng/pi-memory) store what they need to remember in a markdown document
+LLMs have no way to "remember" what they've done before. To "solve" this, agent harnesses like [pi](https://github.com/jayzeng/pi-memory) store what they need to remember in a [standardised markdown document](https://agents.md/).
+
+                {{1}}
+```
+`inference` a "small language model" in Haskell. It builds a
+distribution from an input text and generates tokens from a single-word prompt.
+Source in `app/Main.hs`; sample texts in `data/`.
+
+## Build & run
+
+This is a Cabal project (`inference.cabal`).
+
+` ``sh
+cabal build          # compile
+cabal run inference  # run the executable
+` ``
+
+## Conventions
+
+- Keep `-Wall` clean. The build enables it; don't introduce warnings.
+- The code uses an explicit `Prelude` import list (`NoImplicitPrelude`). When you
+  use a new function, add it to the relevant import list rather than enabling
+  implicit Prelude.
+- Match the existing style: explicit imports, `OverloadedStrings`, `Data.Text`.
+
+## Notes for agents
+
+- There is no test suite yet. If you add one, add a `test-suite` stanza to
+  `inference.cabal` and document how to run it here.
+- Don't commit `dist-newstyle/` (build artifacts).
+```
 
 #### MCP servers and integrations
 
@@ -241,12 +317,47 @@ Give the LLM access to external services (e.g. calendar, bug tracker, ...)
 
 https://mcpservers.org/
 
+I won't go into this since KU-Leuven policy prohibits this and `pi` does not implement MCP.
+
+You can just write your own integration scripts or use an integration CLI tool rather than vibing 😉.
+
 
 ### "Vibe Coding"
 
 ![Vibe Coding](images/karpathy-vibecoding.png)
 
-## Demo
+## When *not* to reach for the LLM
+
+* When you can't verify the result (and it matters).
+
+* When the input is potentially confidential or contains personal information.
+
+* When you'd learn more by doing it yourself, and learning is the point.
+
+* When a deterministic tool already does the job better (formatting, type checking, well known libraries).
+
+
+## Demo workflow
+
+1. There are 2 clear bugs in the program as implemented.
+
+2. There is a big optimization opportunity.
+
+3. There is a glaring engineering issue.
+
+4. Does the LLM push-back against dumb ideas?
+
+### Step 0: Demo the `inference` program
+
+                 {{1}}
+```sh
+cabal run inference data/all.txt James
+```
+
+                 {{2}}
+```sh
+cabal test
+``` 
 
 ### Step 1: Ask the LLM about the project
 
@@ -260,28 +371,32 @@ https://mcpservers.org/
 
 > /grill-me
 
+### Step 4: Break requirements into tasks
+
+> /prd-to-issues
+
+## (Automated) verification and "guard rails"
+
+Lean on tools you already trust to check the LLM output:
+
+* Automated tests
+
+* Type checking and linting
+
+* Git commit hooks
+
+* Verify dependencies (... at least aren't slop/typo squatted)
 
 ## Your turn: Explore the tools
 
-**Goal**: Add a significant feature to the demo project or to an open-source project of your own (selection).
+**Goal**: Add a significant feature to the demo project or your own **non-confidential** project.
 
-Now is a good time to install anything you would like to try out locally.
-Also a good time to log into (or create accounts for) any services you might want to use (check the README).
+Now is a good time to install anything you would like to try out locally (see README.md).
+Also a good time to log into (or create accounts for) any services you might want to use (check the README.md).
 
 ## Use the tools for real
 
 Try to understand the advantages and limitations of each tool.
-
-**Some possibilities you could consider:**
-
-* [Ollama](https://github.com/ollama/ollama/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22+-linked%3Apr)
-* [Polars dataframes](https://github.com/pola-rs/polars/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22+-linked%3Apr)
-* [Biopython](https://github.com/biopython/biopython/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22+-linked%3Apr)
-* [GGPlot2](https://github.com/tidyverse/ggplot2/issues/6178)
-* [YAML](https://github.com/MaybeJustJames/yaml/issues?q=is%3Aissue+is%3Aopen+-linked%3Apr)
-* [A small language model](https://github.com/vibbits/ai-coding-course)
-
-## Questions
 
 * How do I run/build/test the project?
 * What does the code do?
