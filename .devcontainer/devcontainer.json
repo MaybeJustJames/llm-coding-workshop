@@ -4,16 +4,16 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "haskell.haskell",
-        "justusadam.language-haskell"
+        "haskell.haskell"
       ],
       "settings": {
-        "haskell.plugin.ghcide.version": "9.6.7"
+        "haskell.manageHLS": "PATH",
+        "haskell.serverExecutablePath": "/root/.ghcup/bin/haskell-language-server-wrapper"
       }
     }
   },
   "remoteUser": "dev",
   "updateRemoteUserUID": true,
   "runArgs": ["--security-opt=no-new-privileges"],
-  "postCreateCommand": "cabal update"
+  "postCreateCommand": "bash .devcontainer/post-create.sh"
 }

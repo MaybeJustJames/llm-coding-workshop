@@ -46,7 +46,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # --- Haskell toolchain via ghcup ---
 ENV PATH="/root/.ghcup/bin:${PATH}"
 
-# Install ghcup itself (minimal: no GHC yet), then the pinned GHC, cabal and HLS
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org \
     | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 BOOTSTRAP_HASKELL_MINIMAL=1 sh \
     && ghcup install ghc "${GHC_VERSION}" --set \
@@ -80,6 +79,11 @@ RUN cabal update \
     && hoogle --version \
     && rm -rf /root/.cabal/store /root/.cabal/packages /root/.cabal/logs \
               /root/.cache/cabal /root/.local/state/cabal
+
+# --- VS Code Haskell syntax grammar (offline) ---
+ARG LANGUAGE_HASKELL_VERSION=3.6.0
+RUN curl -fsSL -o /opt/language-haskell.vsix \
+    "https://open-vsx.org/api/justusadam/language-haskell/${LANGUAGE_HASKELL_VERSION}/file/justusadam.language-haskell-${LANGUAGE_HASKELL_VERSION}.vsix"
 
 # --- Non-root user ---
 
