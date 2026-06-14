@@ -9,7 +9,16 @@ font:     Noto Sans Egyptian Hieroglyphs, Noto Sans Ogham
 
 # Getting the Most Out of LLM Coding Assistants
 
-![James Collier](https://indigohouse.nl/wp-content/uploads/2026/05/JamesCollier.png"<a href='https://james.thecolliers.xyz'>James Collier</a>")
+![James Collier](https://indigohouse.nl/wp-content/uploads/2026/05/JamesCollier.png"<a href='https://james.thecolliers.xyz'>On the world wide web</a>")
+
+              {{1}}
+<div>
+**Dr. James Collier**
+
+* 10+ years across embedded medical devices → web apps → supercomputers
+* PhD (Computer Science, Monash University, Australia): information compression for protein structural alignment
+* Formerly VIB Bioinformatics Core / Metabolomice Core
+</div>
 
 ## Who are you?
 
@@ -18,6 +27,7 @@ Briefly introduce yourself:
 * What is your name?
 * What do you work on?
 * Why did you join the workshop?
+* And (**if you're comfortable sharing**) your confidence level as a programmer
 
 ## Workshop goals
 
@@ -36,6 +46,8 @@ Briefly introduce yourself:
 * ["Can machines think?" Turing 1950](https://doi.org/10.1093/mind/LIX.236.433)
 * A chat interface? Is [ELIZA](https://www.theguardian.com/technology/2023/jul/25/joseph-weizenbaum-inventor-eliza-chatbot-turned-against-artificial-intelligence-ai)  from 1966 (a few hundred lines of pattern-matching) an AI?
 
+2 competing approaches: *write the rules* vs. *infer from data*
+
 ### Symbolic reasoning
 * Symbolic manipulation and logic. Dartmouth workshop coins "AI" ["Logic Theorist" Newell & Simon, 1956](https://en.wikipedia.org/wiki/Logic_Theorist)
 * Search. "A*" [Hart, Nilsson & Raphael, 1968](https://ieeexplore.ieee.org/document/4082128/)
@@ -45,17 +57,23 @@ Briefly introduce yourself:
 ### Statistical inference
 * Machine learning. [A. Samuel, 1959](https://dl.acm.org/doi/10.1147/rd.33.0210)
 * (Deep) neural networks. "Perceptron" [Rosenblatt, 1958](https://doi.org/10.1037/h0042519) -> [AlexNet](https://en.wikipedia.org/wiki/AlexNet) wins ImageNet in 2012 (Data + GPUs)
-* "Transformer" [Attention is all you need (2017)](https://arxiv.org/abs/1706.03762) -> Large Language Models (LLMs)
+* Notice ^^^ another winter
+* "Transformer" [Attention is all you need (2017)](https://arxiv.org/abs/1706.03762) -> Large Language Models (LLMs) -> GPT-3 (2020) -> ChatGPT (2022)
 
 
 ## What is an LLM?
 
+* You'll work on one today: the demo `inference` project is a 2-gram "language model"
 * A statistical model of language => multi-dimensional probability distribution
 * Model inferred ("trained") from a "large" volume of data
+* "Token" is a sub-word chunk e.g. 'strawberry'   -> ['st', 'raw', 'berry'] -> [302, 1618, 19772]
 * Training result is a high-dimensional statistical distribution that estimates the probabilities for possible next tokens given a context.
 * Sampling from the distribution produces a "token", repeated sampling produces a sequence of tokens.
-* Training often optimizes for observing "human like" sequences of sampled tokens
-* Note! None of this implies factual accuracy
+* Sampling is random (based on a `temperature` parameter).  Output is **NOT DETERMINISTIC**!
+* Training often optimizes for observing plausible "human like" sequences of sampled tokens
+* Each prompt is stateless; the entire conversation is re-fed as context every subsequent prompt (**NO MEMORY** & **NO LEARNING**)
+* None of this implies factual accuracy. LLMs have no model of the world.
+* "Hallucination" isn't a bug; it's the same next-token sampling, just wrong.
 
 ## KULeuven Policies
 
@@ -71,6 +89,7 @@ You should take the time to familiarise yourself with the rules and guidelines a
 * https://www.kuleuven.be/english/genai
 * https://www.kuleuven.be/english/genai/tools-overview
 * https://www.kuleuven.be/english/genai/agentic-ai
+* https://admin.kuleuven.be/personeel/english/ICT-codeofconduct-staff
 
 
 ### Why?
@@ -115,9 +134,32 @@ You should take the time to familiarise yourself with the rules and guidelines a
 [AI agent deletes entire hard-drive](https://www.reddit.com/r/ClaudeAI/comments/1pgxckk/claude_cli_deleted_my_entire_home_directory_wiped/)
 
 
+                           {{10}}
+[Cleaning up after AI rockstar developers](https://www.codingwithjesse.com/blog/rockstar-developers/)
+
+
+                           {{11}}
+[Loss of reasoning skill](https://www.sciencedirect.com/science/article/pii/S0747563224002541)
+
+
+                           {{12}}
+[Your Brain on ChatGPT](https://www.media.mit.edu/projects/your-brain-on-chatgpt/overview/)
+
+
+                           {{13}}
+[Human costs of LLMs](https://www.amnesty.org/en/documents/pol40/0996/2026/en/)
+
+
+                           {{14}}
+[AI Phychosis](https://centerforhumanetechnology.substack.com/p/the-attachment-economy-is-here-were)
+
+                           {{15}}
+I could go on...
+
 
 ## Software development tasks
 
+                           {{1}}
 * Building programs from scratch
 * Adding features to existing programs
 * Fixing bugs in existing programs
@@ -133,19 +175,23 @@ You should take the time to familiarise yourself with the rules and guidelines a
 
 ## What tools do we already use for these tasks?
 
+                           {{1}}
 * Editors (with syntax highlighting, go-to-definition, etc)
 * Static analysis (linters, type checkers)
-* Dynamic analysis (valgrind, profilers)
+* Dynamic analysis (valgrind, profilers, sanitizers)
 * Tests
-* Version control
-* Build tools
+* Version control (`git`, `mercurial`, `fossil`, ...)
+* Build tools (`make`, `cmake`, `bazel`, ...)
 * Debuggers
 * Code generation (macros, procedural generation, etc)
-* Logging and monitoring
-* Dependency management
-* Project management
-* Documentation
+* CI pipelines
+* Logging and (performance) monitoring (Prometheus, Grafana, OpenTelemetry, ...)
+* Benchmark and profiling tools
+* Dependency management (`uv`, `npm`, `cabal`, ...)
+* Project management (Redmine, Forgejo, ...)
+* Documentation. (Zeal, Quarto, D2, ...)
 * Databases
+* Containers
 
 ## How can LLMs assist software development?
 
@@ -331,7 +377,7 @@ You can just write your own integration scripts or use an integration CLI tool r
 
 ![Vibe Coding](images/karpathy-vibecoding.png)
 
-## When *not* to reach for the LLM
+## When *not* to reach for an LLM
 
 * When you can't verify the result (and it matters).
 
@@ -385,20 +431,21 @@ cabal test
 Write a skill to suggest and review tests (or something more relevent to whatever was discussed above).
 
 ## (Automated) verification and "guard rails"
+                      {{0}}
+More important than ever: Verify your dependencies (... at least aren't slop/typo squatted)
 
-Lean on tools you already trust to check the LLM output:
-
+                      {{1}}
+<div>
+Lean on the deterministic tools you can trust to check the LLM output:
+* The compiler
 * Automated tests
-
 * Type checking and linting
+* Version control
+</div>
 
-* Git commit hooks
+## Your turn: Explore for yourself
 
-* Verify dependencies (... at least aren't slop/typo squatted)
-
-## Your turn: Explore the tools
-
-**Goal**: Add a significant feature to the demo project or your own **non-confidential** project.
+Work on my demo project or your own **non-confidential** project.
 
 Now is a good time to install anything you would like to try out locally (see README.md).
 Also a good time to log into (or create accounts for) any services you might want to use (check the README.md).
